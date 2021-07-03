@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoRedisPlugin", "RedisPlugin\NeoRedisPlugin.csproj", "{B2929DD3-435D-4097-9FD4-E353AEB6A38D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedMemory", "SharedMemory\SharedMemory.csproj", "{E1A3D0E4-1F89-4944-95C6-4006F6B0EE0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenCapture", "ScreenCapture\ScreenCapture\ScreenCapture.csproj", "{1AAF158D-4306-4D78-825E-4DADA697B659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessModule", "ScreenCapture\ImageProcessModule\ImageProcessModule.csproj", "{AAE057E7-E415-4D7C-B4E2-859772FA4B96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealbarExtractor_BF1", "HealbarExtractor_BF1\HealbarExtractor_BF1.csproj", "{22788E00-D800-4EEA-99CE-0FBCF6985C12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCRNumberExtractor_PC2", "OCRNumerExtractor_PC2\OCRNumberExtractor_PC2.csproj", "{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2929DD3-435D-4097-9FD4-E353AEB6A38D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2929DD3-435D-4097-9FD4-E353AEB6A38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2929DD3-435D-4097-9FD4-E353AEB6A38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2929DD3-435D-4097-9FD4-E353AEB6A38D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A3D0E4-1F89-4944-95C6-4006F6B0EE0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A3D0E4-1F89-4944-95C6-4006F6B0EE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A3D0E4-1F89-4944-95C6-4006F6B0EE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A3D0E4-1F89-4944-95C6-4006F6B0EE0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AAF158D-4306-4D78-825E-4DADA697B659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AAF158D-4306-4D78-825E-4DADA697B659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AAF158D-4306-4D78-825E-4DADA697B659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AAF158D-4306-4D78-825E-4DADA697B659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAE057E7-E415-4D7C-B4E2-859772FA4B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE057E7-E415-4D7C-B4E2-859772FA4B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE057E7-E415-4D7C-B4E2-859772FA4B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE057E7-E415-4D7C-B4E2-859772FA4B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22788E00-D800-4EEA-99CE-0FBCF6985C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22788E00-D800-4EEA-99CE-0FBCF6985C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22788E00-D800-4EEA-99CE-0FBCF6985C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22788E00-D800-4EEA-99CE-0FBCF6985C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E268C85F-3C2D-4BA3-AF7E-65A3D6A31D60}
+	EndGlobalSection
+EndGlobal
