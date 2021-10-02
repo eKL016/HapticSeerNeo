@@ -12,16 +12,30 @@ namespace HapticSeerNeo
          {
             this.nodeSize = nodeSize;
             this.nodeCount = nodeCount;
-            if(db.SetAdd(this.outletName, guid.ToString()))
+            try
             {
-                this.isRegistered = true;
+                buffer = new SharedArray<T>($"{outletName}_{guid}", nodeSize * nodeCount);
+                RegisterOutlet(OutletMode.SHARED_BUFFER, $"{{nodeSize:{nodeSize},nodeCount:{nodeCount}}}");
+            } 
+            catch (Exception e)
+            {
+                UnregisterOutlet();
+                throw new InvalidOperationException("Register outlet failed.",  e);
+            }
+            
+        }
+        public bool PublishToOutlet(string message)
+        {
+            if (outletRegistered)
+            {
+                return db.Publish(outletName, message, CommandFlags.FireAndForget) > 0;
             }
             else
             {
-                throw new Exception("Register component failed");
+                return false;
             }
-            buffer = new SharedArray<T>($"{outletName}_{guid}", nodeSize*nodeCount);
         }
+
         public void WriteBuffer(T[] data)
         {
             curTime = DateTime.Now;
@@ -29,6 +43,14 @@ namespace HapticSeerNeo
             pointer = (pointer + 1) % nodeCount;
             PublishToOutlet($"{pointer.ToString()}|{curTime.Ticks}");
         }
+        public void WriteBuffer(ref T data)
+        {
+            curTime = DateTime.Now;
+            buffer.Write(ref data, pointer * nodeSize);
+            pointer = (pointer + 1) % nodeCount;
+            PublishToOutlet($"{pointer.ToString()}|{curTime.Ticks}");
+        }
+
     }
 
 

@@ -173,10 +173,12 @@ namespace ScreenCapture
                 {
                     if (em.ResultCode.Code != SharpDX.DXGI.ResultCode.WaitTimeout.Result.Code)
                     {
+                        producer.Dispose(true);
                         throw em;
                     }
                 }
             }
+            producer.Dispose(true);
         }
         /// <summary>
         /// Copy Image from Texture2D to Mat.

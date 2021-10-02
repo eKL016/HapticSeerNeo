@@ -4,14 +4,20 @@ using SharedMemory;
 
 namespace HapticSeerNeo
 {
-    public class NeoRedisPlugin : IDisposable
+    
+    public abstract class NeoRedisPlugin : IDisposable
     {
+        public enum OutletMode
+        {
+            MSG_ONLY,
+            SHARED_BUFFER
+        }
         protected static ConnectionMultiplexer redis;
-        protected bool disposed = false, isRegistered = false;
+        protected bool disposed = false, outletRegistered = false;
         protected Guid guid;
         protected IDatabase db;
         protected ISubscriber subscriber;
-        protected InletCallBack inletCallBack;
+        private InletCallBack inletCallBack;
 
         public delegate void InletCallBack(string content);
         public readonly string inletName, outletName;
@@ -34,7 +40,7 @@ namespace HapticSeerNeo
             guid = Guid.NewGuid();
             db = redis.GetDatabase();
         }
-        public void SubscribeToSingleChannel(string channelName, InletCallBack cb)
+        protected void SubscribeInletToOutlet(string channelName, InletCallBack cb)
         {
             inletCallBack = cb;
             subscriber = redis.GetSubscriber();
@@ -42,9 +48,34 @@ namespace HapticSeerNeo
                 inletCallBack(msgValue.ToString());
             });
         }
-        public bool PublishToOutlet(string content)
+
+        public void RegisterOutlet(OutletMode outletMode, string metadata = "")
         {
-            return db.Publish(outletName, content, CommandFlags.FireAndForget)>0;
+            if (db.KeyExists(guid.ToString())) throw new InvalidOperationException("GUID already existed");
+            switch (outletMode)
+            {
+                case OutletMode.MSG_ONLY:
+                    db.SetAdd(outletName, guid.ToString());
+                    db.StringSet(guid.ToString(), $"MSG|{metadata}");
+                    break;
+                case OutletMode.SHARED_BUFFER:
+                    db.SetAdd(outletName, guid.ToString());
+                    db.StringSet(guid.ToString(), $"MEM|{metadata}");
+                    break;
+                default:
+                    throw new NotImplementedException("Unknown outlet mode provided");
+            }
+            outletRegistered = true;
+        }
+
+        public void UnregisterOutlet()
+        {
+            if (outletRegistered) 
+            {
+                db.SetRemove(outletName, guid.ToString());
+                db.KeyDelete(guid.ToString());
+                outletRegistered = false;
+            }
         }
 
         protected virtual void Dispose(bool disposing)
@@ -52,36 +83,24 @@ namespace HapticSeerNeo
             if (this.disposed) return;
             if (disposing)
             {
-                if(isRegistered)
-                    db.SetRemove(outletName, guid.ToString());
+                if (outletRegistered)
+                {
+                    UnregisterOutlet();
+                }
                 redis.Dispose();
             }            
             disposed = true;
-        }
-
-        static void Main(string[] args)
-        {
-            int[] data = new int[1920 * 1080];
-            int[] data1 = new int[1920 * 1080];
-            int[] data2 = new int[1920 * 1080];
-            SharedArray<int> prod = new SharedArray<int>("TEST", 60 * 1920 * 1080);
-            SharedArray<int> com = new SharedArray<int>("TEST");
-            SharedArray<int> com1 = new SharedArray<int>("TEST");
-
-            for (int i = 0; i < 1920 * 1080; i++) data[i] = 1;
-            prod.Write(data, 1920 * 1080);
-            com.CopyTo(data1, 1920 * 1080);
-            Console.WriteLine(data1[0]);
-
-            for (int i = 0; i < 1920 * 1080; i++) data[i] = 2;
-            prod.Write(data, 3 * 1920 * 1080 );
-            com1.CopyTo(data2, 3 * 1920 * 1080 );
-            Console.WriteLine(data2[0]);
         }
 
         public void Dispose()
         {
             Dispose(true);
         }
+        static void Main()
+        {
+
+        }
     }
 }
+
+

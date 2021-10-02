@@ -11,9 +11,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenCapture", "ScreenCapt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessModule", "ScreenCapture\ImageProcessModule\ImageProcessModule.csproj", "{AAE057E7-E415-4D7C-B4E2-859772FA4B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealbarExtractor_BF1", "HealbarExtractor_BF1\HealbarExtractor_BF1.csproj", "{22788E00-D800-4EEA-99CE-0FBCF6985C12}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CCDFF68-BB2B-4B8B-8FF0-7D85A7388E7B}"
+	ProjectSection(SolutionItems) = preProject
+		TODO.md = TODO.md
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCRNumberExtractor_PC2", "OCRNumerExtractor_PC2\OCRNumberExtractor_PC2.csproj", "{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthbarExtractor_BF1", "HealthbarExtractor_BF1\HealthbarExtractor_BF1.csproj", "{22788E00-D800-4EEA-99CE-0FBCF6985C12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCRNumberExtractor_PC2", "OCRNumberExtractor_PC2\OCRNumberExtractor_PC2.csproj", "{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InertiaDetector", "InertiaDetector\InertiaDetector.csproj", "{B0C59FD3-6F0F-4E4F-BD06-6EA458E8A5AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +52,10 @@ Global
 		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50437D7D-0BA3-4234-9D8E-1DCF5CF71C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0C59FD3-6F0F-4E4F-BD06-6EA458E8A5AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C59FD3-6F0F-4E4F-BD06-6EA458E8A5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C59FD3-6F0F-4E4F-BD06-6EA458E8A5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C59FD3-6F0F-4E4F-BD06-6EA458E8A5AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

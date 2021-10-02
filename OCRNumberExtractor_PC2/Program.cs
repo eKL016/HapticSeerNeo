@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using Emgu.CV;
 using Tesseract;
+using HapticSeerNeo;
 
 namespace HapticSeerNeo
 {
@@ -12,6 +13,7 @@ namespace HapticSeerNeo
         public static int[] videoBuffer;
         public static Mat mat, croppedImg;
         public static Comsumer<int> comsumer;
+        public static Publisher publisher;
 
         private static int resetLimit = 3 * 60;
         private static SpeedImageProcess speedImageProcess = new SpeedImageProcess();
@@ -22,7 +24,7 @@ namespace HapticSeerNeo
         private static long sourceTick, receivedTick, processedTick;
         private static Mutex mut = new Mutex();
 
-        public static void SpeedDetectionEvent(Comsumer<int> self, string msg)
+        public static void SpeedDetectionEvent(string msg)
         {
             receivedTick = DateTime.Now.Ticks;
 
@@ -88,11 +90,13 @@ namespace HapticSeerNeo
                 else if (isParsable)
                 {
                     preSpeed = speed;
-                    if (self.outletName.Length != 0)
+                    if (publisher !=  null)
                     {
-                        Console.WriteLine($"Speed: {speed}");
-                        // Send extracted digits by the publisher to a Redis channel named as the value of "speedOulet"
-                        self.PublishToOutlet($"{speed}");
+                    // Send extracted digits by the publisher to a Redis channel named as the value of "speedOulet"
+#if DEBUG
+                    Console.WriteLine(speed.ToString());
+#endif
+                    publisher.PublishToOutlet(speed.ToString());
                     }
                 }
 #if !DEBUG
@@ -106,6 +110,7 @@ namespace HapticSeerNeo
 
         static void Main(string[] args)
         {
+            
             tesseractEngine = new TesseractEngine(Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory), "tessdata/KomuB", EngineMode.Default);
             if (args.Length == 0)
             {
@@ -118,8 +123,14 @@ namespace HapticSeerNeo
 
             Console.WriteLine("Press any key to start extraction...");
             _ = Console.ReadKey();
-            comsumer = new Comsumer<int>(args[0], args[1], w * h, ref videoBuffer, SpeedDetectionEvent);
-            _ = Console.ReadKey();
+
+            using (publisher = new Publisher(args[1]))
+            using (comsumer = new Comsumer<int>(args[0], w * h, ref videoBuffer, SpeedDetectionEvent))
+            {
+                _ = Console.ReadKey();
+                publisher.Dispose(true);
+                comsumer.Dispose(true);
+            }
         }
     }
 }
