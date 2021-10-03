@@ -49,7 +49,7 @@ namespace HapticSeerNeo
             });
         }
 
-        public void RegisterOutlet(OutletMode outletMode, string metadata = "")
+        protected void RegisterOutlet(OutletMode outletMode, string metadata = "")
         {
             if (db.KeyExists(guid.ToString())) throw new InvalidOperationException("GUID already existed");
             switch (outletMode)
@@ -68,7 +68,7 @@ namespace HapticSeerNeo
             outletRegistered = true;
         }
 
-        public void UnregisterOutlet()
+        protected void UnregisterOutlet()
         {
             if (outletRegistered) 
             {

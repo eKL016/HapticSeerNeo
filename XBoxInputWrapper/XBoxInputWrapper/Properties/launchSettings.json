@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "XBoxInputWrapper": {
+      "commandName": "Project",
+      "commandLineArgs": "XINPUT"
+    }
+  }
+}

@@ -1,4 +1,6 @@
 ﻿using HapticSeerNeo;
+using System;
+
 namespace PC2Detectors
 {
     class InertiaDetector
@@ -11,13 +13,27 @@ namespace PC2Detectors
             string speedInlet, string xinputInlet, 
             string accOutlet)
         {
-            using (inertiaPublisher = new Publisher(accOutlet))
-            using (speedSubscriber = new Subscriber(speedInlet, msg => InertiaFunctions.Router(speedInlet, msg, ref state)))
-            using(inputSubscriber = new Subscriber(xinputInlet, msg => InertiaFunctions.Router(xinputInlet, msg, ref state))){
-                state = new StateObject(inertiaPublisher);
-                state.speedInlet = speedInlet;
-                state.xinputInlet = xinputInlet;
-                state.accOutlet = accOutlet;
+            try
+            {
+                using (inertiaPublisher = new Publisher(accOutlet))
+                {
+                    state = new StateObject(inertiaPublisher)
+                    {
+                        speedInlet = speedInlet,
+                        xinputInlet = xinputInlet,
+                        accOutlet = accOutlet
+                    };
+                    using (inputSubscriber = new Subscriber(xinputInlet, msg => InertiaFunctions.Router(xinputInlet, msg, ref state)))
+                    using (speedSubscriber = new Subscriber(speedInlet, msg => InertiaFunctions.Router(speedInlet, msg, ref state)))
+                    {
+                        _ = Console.ReadKey();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                inertiaPublisher.Dispose();
+                throw e;
             }
         }
     }

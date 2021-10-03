@@ -16,12 +16,12 @@ namespace PC2Detectors {
         public Publisher inertiaPublisher;
 
 
-        public StateObject(Publisher inertaiPublisher, byte frameLength = 4, double carLength = 1d, 
+        public StateObject(Publisher inertiaPublisher, byte frameLength = 4, double carLength = 1d, 
             string accOutlet = null)
         {
             this.frameLength = frameLength;
             this.carLength = carLength;
-            this.inertiaPublisher = inertaiPublisher;
+            this.inertiaPublisher = inertiaPublisher;
             this.accOutlet = accOutlet;
             for (int i = 0; i < frameLength; i++)
             {

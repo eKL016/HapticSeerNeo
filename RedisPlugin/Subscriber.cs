@@ -8,9 +8,24 @@ namespace HapticSeerNeo
 {
     public class Subscriber : MsgUser
     {
+        private int timeOut = 30000;
+        public bool isPublisherFound = false, isListening = false;
+
         public Subscriber(string inletName, InletCallBack cb = null) : base(inletName, "")
         {
-            SubscribeInletToOutlet(inletName, cb);
+            isPublisherFound = System.Threading.SpinWait.SpinUntil(() => {
+                return !db.SetRandomMember(this.inletName).IsNull;
+            }, timeOut);
+            if (isPublisherFound)
+            {
+                SubscribeInletToOutlet(inletName, cb);
+                isListening = true;
+            }
+            else
+            {
+                throw new Exception($"Timed-out after {timeOut / 1000} seconds waiting for a publisher");
+            }
+            
         }
     }
 }

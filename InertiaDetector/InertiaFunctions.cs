@@ -8,7 +8,7 @@ namespace PC2Detectors
         const double HANDLER_MAX_ANGLE = 15d;
         public static void Router(string channelName, string msg, ref StateObject state)
         {
-            if(channelName == state.xinputInlet)
+            if (channelName == state.xinputInlet)
             {
                 int headerPos = msg.IndexOf('|');
                 if (msg.Substring(0, headerPos) == "ThumbLX")
@@ -18,7 +18,6 @@ namespace PC2Detectors
             {
                 UpdateSpeedState(msg, ref state);
             }
-            //Console.WriteLine((Program.globalSW.ElapsedTicks - start) / (double) TimeSpan.TicksPerMillisecond);
         }
         public static void UpdateSpeedState(string msg, ref StateObject state)
         {
@@ -31,13 +30,15 @@ namespace PC2Detectors
                 state.Angle = state.LastAngle;
                 var accX = state.AccelX;
                 var accY = state.AccelY;
+#if DEBUG
+                Console.WriteLine($"{accX.ToString()}|{accY.ToString()}");
+#endif
                 state.inertiaPublisher.PublishToOutlet($"{accX.ToString()}|{accY.ToString()}");
-                Console.WriteLine(state.AccelY);
             }
             catch (Exception e) 
             {
                 if (e is IndexOutOfRangeException) throw e;
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.ToString());
             }
         }
         public static void UpdateNormalState(string msg, ref StateObject state)

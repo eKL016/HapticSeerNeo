@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "InertiaDetector": {
+      "commandName": "Project",
+      "commandLineArgs": "SPEED XINPUT ACC"
+    }
+  }
+}

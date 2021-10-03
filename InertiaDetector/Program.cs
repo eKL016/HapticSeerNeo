@@ -11,7 +11,6 @@ namespace PC2Detectors
         {
             Thread.Sleep(5000);
             InertiaDetector inertiaDetector = new InertiaDetector("localhost", 6380, args[0], args[1], args[2]);
-            _ = Console.ReadKey();
             return 0;
         }
     }
