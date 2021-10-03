@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessModule", "Scree
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CCDFF68-BB2B-4B8B-8FF0-7D85A7388E7B}"
 	ProjectSection(SolutionItems) = preProject
-		TODO.md = TODO.md
+		known_issues.md = known_issues.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthbarExtractor_BF1", "HealthbarExtractor_BF1\HealthbarExtractor_BF1.csproj", "{22788E00-D800-4EEA-99CE-0FBCF6985C12}"
